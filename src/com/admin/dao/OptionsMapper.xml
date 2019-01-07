@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+
+<mapper namespace="OptionsDao">  
+
+	<select id="optionsCount" parameterType="int" resultType="int">
+		SELECT COUNT(*)	FROM OPTIONS WHERE GNUM = #{gNum}
+	</select>
+	
+	<insert id="insert" parameterType="OptionsVO">
+		INSERT INTO OPTIONS VALUES(#{oNum},#{oName1}, #{oName2}, #{oPrice}, #{oQuantity}, #{gNum})
+	</insert>
+	
+	<select id="getMaxONum" resultType="int">
+		SELECT NVL(MAX(oNum),0) FROM OPTIONS
+	</select>
+	
+	<select id="optionsList" parameterType="int" resultType="OptionsVO">
+		SELECT * FROM OPTIONS where GNUM = #{gNum} ORDER BY ONUM
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+

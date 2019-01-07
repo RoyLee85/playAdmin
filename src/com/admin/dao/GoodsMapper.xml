@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+
+<mapper namespace="GoodsDao">  
+
+	<select id="goodsList" parameterType="map" resultType="GoodsVO">
+        SELECT GNUM, TITLE, CATEGORY, MCOMPANY, GREGDATE, HIT FROM (SELECT A.*, ROWNUM RNUM FROM (SELECT * FROM GOODS ORDER BY GNUM DESC)A)
+		<![CDATA[
+		WHERE RNUM >= #{start} AND RNUM <= #{end}		
+		]]>			
+	</select>
+	
+	<select id="goodsCount" parameterType="map" resultType="Integer">
+		SELECT COUNT(*)	FROM GOODS
+	</select>
+	
+	<insert id="insert" parameterType="GoodsVO">
+		INSERT INTO GOODS VALUES(#{gNum}, #{title}, #{content}, #{price}, #{category}, #{mCompany}, #{origin}, #{dBasePrice}, #{dPrice}, SYSDATE, #{hit})
+	</insert>
+	
+	<select id="getMaxgNum" resultType="int">
+		SELECT NVL(MAX(gNum),0) FROM GOODS
+	</select>
+	
+	<select id="getInfoGoods" parameterType="int" resultType="GoodsVO">
+		SELECT * FROM GOODS WHERE GNUM=#{gNum}
+	</select>
+	
+	<update id="addHit" parameterType="int">
+		UPDATE GOODS SET HIT=HIT+1 WHERE GNUM=#{gNum}
+	</update>	
+	
+</mapper>
+
+
+
+
+
+
+

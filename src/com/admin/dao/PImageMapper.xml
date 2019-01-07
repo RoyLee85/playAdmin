@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+
+<mapper namespace="PImageDao">  
+	
+	<select id="pImageCount" parameterType="int" resultType="int">
+		SELECT COUNT(*)	FROM PIMAGE WHERE GNUM = #{gNum}
+	</select>
+	
+	<insert id="insert" parameterType="PImageVO">
+		INSERT INTO PIMAGE VALUES(#{iNum},#{gNum}, #{orgName}, #{saveName}, #{fileSize}, #{path})
+	</insert>
+	
+	<select id="getMaxINum" resultType="int">
+		SELECT NVL(MAX(INum),0) FROM PIMAGE
+	</select>
+	
+	<select id="pImageList" parameterType="int" resultType="PImageVO">
+		SELECT * FROM PIMAGE where GNUM = #{gNum} ORDER BY INUM
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
